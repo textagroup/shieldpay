@@ -90,10 +90,10 @@ class shieldpay {
 		}
 	}
 
-	async addUser(config, data) {
+	async addUser() {
 		this.url = "https://api.sandbox.partner.shieldpay.com/v1/users";
 
-		let email = prompt("What is the users email address? ");
+		let email_address = prompt("What is the users email address? ");
 		let first_name = prompt("What is the users first name? ");
 		let last_name = prompt("What is the users last name? ");
 		let dial_code = prompt("What is the users dial code? ");
@@ -101,7 +101,7 @@ class shieldpay {
 		let date_of_birth = prompt("What is the users date_of_birth? ")
 
 		const payload = JSON.stringify({
-			email_address: email,
+			email_address: email_address,
 			first_name: first_name,
 			last_name: last_name,
 			dial_code: dial_code,
@@ -112,6 +112,33 @@ class shieldpay {
 		console.log(await this.createResponse(payload, 1));
 	}
 
+	async addProject() {
+		this.url = "https://api.sandbox.partner.shieldpay.com/v1/projects";
+
+		let name = prompt("What is the projects name? ");
+		let amount = prompt("What is the projects total value? ");
+		let currency_id = prompt("What is the projects currency id? ");
+		let start_date = prompt("What is the projects start date? ");
+		let end_date = prompt("What is the projects end date? ");
+		let longstop_date = prompt("What is the projects longstop date? ");
+		let project_type_id = prompt("What is the projects type id? ")
+		let email_address = prompt("What is the project owners email address? ");
+		let no_of_approvers = prompt("How many approvers do you need (2 or 3)? ")
+
+		const payload = JSON.stringify({
+			name: name,
+			amount: amount,
+			currency_id: currency_id,
+			start_date: start_date,
+			end_date: end_date,
+			longstop_date: longstop_date,
+			project_type_id: project_type_id,
+			email_address: email_address,
+			no_of_approvers: no_of_approvers,
+		});
+		this.setup(payload, 1);
+		console.log(await this.createResponse(payload, 1));
+	}
 }
 
 export { shieldpay as default };

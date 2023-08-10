@@ -7,6 +7,10 @@ var prompt = promptSync();
 
 let config;
 
+const methods = [
+	'addUser',
+	'addProject'
+];
 
 if (fs.existsSync('config.json')) {
 	//file exists
@@ -15,9 +19,24 @@ if (fs.existsSync('config.json')) {
 			console.error(err);
 			return;
 		}
+		console.log("The folloing methods can be run!");
+		for (let i = 0; i < methods.length; i++) {
+			console.log(i + 1 + ': ' + methods[i]);
+		}
+		let choice = prompt("Please select a method? ");
 		config = JSON.parse(data);
 		var lib = new shieldpay(config);
-		let response = lib.addUser();
+		switch (choice) {
+			case '1':
+				lib.addUser();
+				break;
+			case '2':
+				lib.addProject();
+				break;
+			default:
+				console.log('Invalid selection');
+				return;
+		}
 		console.log(lib.getResponse());
 	});
 } else {
