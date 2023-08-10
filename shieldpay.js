@@ -139,6 +139,20 @@ class shieldpay {
 		this.setup(payload, 1);
 		console.log(await this.createResponse(payload, 1));
 	}
+
+	async getProjects() {
+		this.url = "https://api.sandbox.partner.shieldpay.com/v1/projects";
+
+		let current_page = prompt("Do you have a pagination page you want to view? ", 1);
+		let page_size = prompt("How many records do you want to retrieve (default is 10)? ", 10);
+
+		const payload = JSON.stringify({
+			current_page,
+			page_size,
+		});
+		this.setup(payload, 1);
+		console.log(await this.createResponse(payload, 1));
+	}
 }
 
 export { shieldpay as default };

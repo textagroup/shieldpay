@@ -9,7 +9,8 @@ let config;
 
 const methods = [
 	'addUser',
-	'addProject'
+	'addProject',
+	'getProject',
 ];
 
 if (fs.existsSync('config.json')) {
@@ -32,6 +33,9 @@ if (fs.existsSync('config.json')) {
 				break;
 			case '2':
 				lib.addProject();
+				break;
+			case '3':
+				lib.getProjects();
 				break;
 			default:
 				console.log('Invalid selection');
