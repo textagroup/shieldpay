@@ -61,37 +61,57 @@ class shieldpay {
                     .toString("base64");
 	}
 
+	testSignatureGeneration() {
+		let payload = '';
+		let post = 0;
+		let method = prompt("What is the method (GET or POST)? ");
+		this.url = prompt("What is the URL? ");
+		let api_key = prompt("What is the API key? ");
+		this.requestId = prompt("What is the request_id? ");
+		this.timestamp = prompt("What is the timestamp? ");
+		if (method == 'POST') {
+			post = 1;
+			// need to do something with payload
+		}
+		if (api_key) {
+			this.config.api = api_key;
+		}
+		this.getPrivateKey();
+		this.getSignature(payload, post);
+		console.log(this.signature);
+	}
+
 	async createResponse(payload, post = 0) {
-		const postResponse = await fetch(this.url, {
-			method: 'POST',
-			agent: new https.Agent({
-				cert: this.cert,
-				key: this.privateKey,
-			}),
-			headers: {
-				Authorization: this.config.api,
-				Timestamp: this.timestamp,
-				RequestID: this.requestId,
-				DigitalSignature: this.signature
-			},
-			body: payload
-		});
-		const getResponse = await fetch(this.url, {
-			method: 'GET',
-			agent: new https.Agent({
-				cert: this.cert,
-				key: this.privateKey,
-			}),
-			headers: {
-				Authorization: this.config.api,
-				Timestamp: this.timestamp,
-				RequestID: this.requestId,
-				DigitalSignature: this.signature
-			},
-		});
 		if (post == 1) {
+			const postResponse = await fetch(this.url, {
+				method: 'POST',
+				agent: new https.Agent({
+					cert: this.cert,
+					key: this.privateKey,
+				}),
+				headers: {
+					Authorization: this.config.api,
+					Timestamp: this.timestamp,
+					RequestID: this.requestId,
+					DigitalSignature: this.signature
+				},
+				body: payload
+			});
 			this.apiResponse = await postResponse.json();
 		} else {
+			const getResponse = await fetch(this.url, {
+				method: 'GET',
+				agent: new https.Agent({
+					cert: this.cert,
+					key: this.privateKey,
+				}),
+				headers: {
+					Authorization: this.config.api,
+					Timestamp: this.timestamp,
+					RequestID: this.requestId,
+					DigitalSignature: this.signature
+				},
+			});
 			this.apiResponse = await getResponse.json();
 		}
 		return this.apiResponse;

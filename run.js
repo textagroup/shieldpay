@@ -11,6 +11,7 @@ const methods = [
 	'addUser',
 	'addProject',
 	'getProject',
+	'testSignatureGeneration',
 ];
 
 if (fs.existsSync('config.json')) {
@@ -36,6 +37,9 @@ if (fs.existsSync('config.json')) {
 				break;
 			case '3':
 				lib.getProjects();
+				break;
+			case '4':
+				lib.testSignatureGeneration();
 				break;
 			default:
 				console.log('Invalid selection');
