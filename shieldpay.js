@@ -62,9 +62,8 @@ class shieldpay {
 	}
 
 	async createResponse(payload, post = 0) {
-		const method = (post == 0) ? 'GET' : 'POST';
-		const response = await fetch(this.url, {
-			method: method,
+		const postResponse = await fetch(this.url, {
+			method: 'POST',
 			agent: new https.Agent({
 				cert: this.cert,
 				key: this.privateKey,
@@ -77,7 +76,24 @@ class shieldpay {
 			},
 			body: payload
 		});
-		this.apiResponse = await response.json();
+		const getResponse = await fetch(this.url, {
+			method: 'GET',
+			agent: new https.Agent({
+				cert: this.cert,
+				key: this.privateKey,
+			}),
+			headers: {
+				Authorization: this.config.api,
+				Timestamp: this.timestamp,
+				RequestID: this.requestId,
+				DigitalSignature: this.signature
+			},
+		});
+		if (post == 1) {
+			this.apiResponse = await postResponse.json();
+		} else {
+			this.apiResponse = await getResponse.json();
+		}
 		return this.apiResponse;
 	}
 
@@ -150,8 +166,8 @@ class shieldpay {
 			current_page,
 			page_size,
 		});
-		this.setup(payload, 1);
-		console.log(await this.createResponse(payload, 1));
+		this.setup(payload, 0);
+		console.log(await this.createResponse(payload, 0));
 	}
 }
 
