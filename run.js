@@ -12,6 +12,7 @@ const methods = [
 	'addProject',
 	'getProject',
 	'testSignatureGeneration',
+	'testSignatureGenerationFromAuthString',
 ];
 
 if (fs.existsSync('config.json')) {
@@ -40,6 +41,9 @@ if (fs.existsSync('config.json')) {
 				break;
 			case '4':
 				lib.testSignatureGeneration();
+				break;
+			case '5':
+				lib.testSignatureGenerationFromAuthString();
 				break;
 			default:
 				console.log('Invalid selection');

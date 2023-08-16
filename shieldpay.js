@@ -81,6 +81,15 @@ class shieldpay {
 		console.log(this.signature);
 	}
 
+	testSignatureGenerationFromAuthString() {
+		let auth_string = prompt("What is the auth string? ");
+		this.getPrivateKey();
+		this.signature = crypto
+                    .sign("RSA-SHA256", Buffer.from(auth_string), this.privateKey)
+                    .toString("base64");
+		console.log(this.signature);
+	}
+
 	async createResponse(payload, post = 0) {
 		if (post == 1) {
 			const postResponse = await fetch(this.url, {
