@@ -198,6 +198,18 @@ class shieldpay {
 		this.setup(payload, 0);
 		console.log(await this.createResponse(payload, 0));
 	}
+
+	async getPayeeDetails() {
+		let payee_id = prompt("What is the payee id? ");
+
+		this.url = "https://api.sandbox.partner.shieldpay.com/v2/payees/"
+			+ payee_id;
+
+		const payload = '';
+
+		this.setup(payload, 0);
+		console.log(await this.createResponse(payload, 0));
+	}
 }
 
 export { shieldpay as default };

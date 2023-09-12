@@ -11,6 +11,7 @@ const methods = [
 	'addUser',
 	'addProject',
 	'getProject',
+	'getPayeeDetails',
 	'testSignatureGeneration',
 	'testSignatureGenerationFromAuthString',
 ];
@@ -40,9 +41,12 @@ if (fs.existsSync('config.json')) {
 				lib.getProjects();
 				break;
 			case '4':
-				lib.testSignatureGeneration();
+				lib.getPayeeDetails();
 				break;
 			case '5':
+				lib.testSignatureGeneration();
+				break;
+			case '6':
 				lib.testSignatureGenerationFromAuthString();
 				break;
 			default:
