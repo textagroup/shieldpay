@@ -14,6 +14,7 @@ const methods = [
 	'getPayeeDetails',
 	'testSignatureGeneration',
 	'testSignatureGenerationFromAuthString',
+	'getSourceDetails',
 ];
 
 if (fs.existsSync('config.json')) {
@@ -48,6 +49,9 @@ if (fs.existsSync('config.json')) {
 				break;
 			case '6':
 				lib.testSignatureGenerationFromAuthString();
+				break;
+			case '7':
+				lib.getSourceDetails();
 				break;
 			default:
 				console.log('Invalid selection');

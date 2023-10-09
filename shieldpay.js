@@ -210,6 +210,18 @@ class shieldpay {
 		this.setup(payload, 0);
 		console.log(await this.createResponse(payload, 0));
 	}
+
+	async getSourceDetails() {
+		let source_id = prompt("What is the source id? ");
+
+		this.url = "https://api.sandbox.partner.shieldpay.com/v1/sources/"
+			+ source_id;
+
+		const payload = '';
+
+		this.setup(payload, 0);
+		console.log(await this.createResponse(payload, 0));
+	}
 }
 
 export { shieldpay as default };
